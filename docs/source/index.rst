@@ -84,8 +84,15 @@ Optional Configuration
 
 You can set the URLs Flask-BrowserID uses for login and logout by setting the following in your application's configuration:
 
-* `BROWSERID_LOGIN_URL`: defaults to `/api/login`
-* `BROWSERID_LOGOUT_URL`: defaults to `/api/logout`
+* `BROWSERID_LOGIN_URL`: defaults to ``/api/login``
+* `BROWSERID_LOGOUT_URL`: defaults to ``/api/logout``
+
+You can override the domain name and `scheme <http://en.wikipedia.org/wiki/URI_scheme>`_ for cases where the URL that the user browses to differs from the url of the server for example when you have a `reverse proxy <http://en.wikipedia.org/wiki/Reverse_proxy>`_
+
+* `BROWSERID_CLIENT_DOMAIN`: override the DNS name of the site. Example : ``example.com``
+* `BROWSERID_CLIENT_SCHEME`: override the scheme of the site (e.g. http vs https). Example : ``https``
+
+By default each of these values are determined by `flask.request.url_root <http://flask.pocoo.org/docs/0.10/api/#flask.Request.url_root>`_
 
 See `Flask Configuration Handling
 <http://flask.pocoo.org/docs/config/>`_ for more on how to configure your application.

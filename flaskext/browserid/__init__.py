@@ -25,6 +25,7 @@ class BrowserID(object):
         self.login_url = app.config.get('BROWSERID_LOGIN_URL', '/api/login')
         self.logout_url = app.config.get('BROWSERID_LOGOUT_URL', '/api/logout')
         self.client_domain = app.config.get('BROWSERID_CLIENT_DOMAIN', None)
+        self.client_scheme = app.config.get('BROWSERID_CLIENT_SCHEME', None)
 
         if not self.login_callback:
             if app.config.get('BROWSERID_LOGIN_CALLBACK'):
@@ -73,6 +74,8 @@ class BrowserID(object):
     def get_client_origin(self):
         if self.client_domain:
             # Build the client_origin
+            if self.client_scheme:
+                return self.client_scheme + '://' + self.client_domain
             end_scheme = flask.request.url_root.find('://') + 3
             client_scheme = flask.request.url_root[:end_scheme]
             return client_scheme + self.client_domain
